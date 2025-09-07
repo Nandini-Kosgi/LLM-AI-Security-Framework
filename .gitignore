@@ -1,0 +1,17 @@
+
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+logs/
+reports/
+.env
+.env.*
+
+cat > .dockerignore <<'EOF'
+.venv
+__pycache__
+logs
+reports
+.env
