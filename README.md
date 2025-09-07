@@ -62,9 +62,9 @@ Together, they create a continuous feedback loop that improves LLM security.
 
 ## In bash
 
-Setup
+#Setup
    
----
+
 - python -m venv .venv
 - source .venv/Scripts/activate   # Windows (Git Bash)
 - pip install --upgrade pip
@@ -76,18 +76,17 @@ Setup
  - ollama run llama3.1
 
 
-Run the API locally (MVP)
 
+#Run the API locally (MVP)
 - uvicorn app.main:app --reload --port 8000
   
-Test a normal request:
+#Test a normal request:
   
 - curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"user_input":"Hello! can you summarize: red vs blue vs filter?"}'
 - Security logs write to `logs/security.log` and `logs/requests.log` (JSONL).
 
 
 #Execute Red‑Team Suite
-
 
 python redteam/run_redteam.py --base-url http://localhost:8000 --outfile reports/run.json
 python evaluation/metrics.py --infile reports/run.json
