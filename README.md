@@ -86,7 +86,7 @@ Test a normal request:
 - Security logs write to `logs/security.log` and `logs/requests.log` (JSONL).
 
 
-# Execute Red‑Team Suite
+#Execute Red‑Team Suite
 
 
 python redteam/run_redteam.py --base-url http://localhost:8000 --outfile reports/run.json
@@ -99,7 +99,7 @@ python evaluation/metrics.py --infile reports/run.json
 - Reports are saved into `reports/` as JSON/CSV.
 
 
- # Hardening Checklist (iterate)
+ #Hardening Checklist (iterate)
 
 - Add real moderation endpoints (e.g., OpenAI/Claude safety, custom toxicity/PII classifiers).
 - Add anomaly detection using semantic similarity (embedding) of known-bad payloads.
@@ -109,7 +109,7 @@ python evaluation/metrics.py --infile reports/run.json
 
 
 
-# Docker (optional)
+#Docker (optional)
 
 docker build -t llm-ai-security -f Dockerfile.app .
 docker run --rm -p 8000:8000 --env-file .env llm-ai-security
