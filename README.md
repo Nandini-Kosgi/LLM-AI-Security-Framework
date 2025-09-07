@@ -3,7 +3,7 @@
 ## 🎯 AIM
 To build a "defensive security framework for Large Language Models (LLMs)" that simulates attacks, monitors anomalies, and enforces guardrails, ensuring trustworthy, compliant, and safe enterprise AI deployments.
 
----
+
 
 ## 📌 Overview
 Modern LLM-powered applications (chatbots, copilots, RAG pipelines) face risks like prompt injection, jailbreaks, data leakage, bias exploitation, and PII exposure.  
@@ -15,7 +15,7 @@ This project introduces a "Three-team AI Security Framework":
 
 Together, they create a continuous feedback loop that improves LLM security.
 
----
+
 
 ## ⚙️ Tech Stack
 - LLMs: OpenAI GPT, Anthropic Claude, Llama (via Ollama)  
@@ -25,7 +25,7 @@ Together, they create a continuous feedback loop that improves LLM security.
 - Infra: Python, Docker
 - Visualization: Grafana/Kibana dashboards for monitoring  
 
----
+
 
 ## 🌟 Features
 - 🔴 Red Teaming → adversarial prompt injections, jailbreak attempts, bias triggers, PII extraction  
@@ -35,7 +35,7 @@ Together, they create a continuous feedback loop that improves LLM security.
 - 🚀 Deployable → Run locally via `uvicorn` or in containers with Docker/K8s  
 - 🔒 Safe Fallback Mode → `[echo]` mode when no model is configured  
 
----
+
 
 ## 📂 Folder Structure
 
@@ -58,10 +58,11 @@ Together, they create a continuous feedback loop that improves LLM security.
     └── metrics.py         # Aggregates red-team results into ASR/DR/FPR/Latency
 ```
 
----
 
-### 1) Setup
 
+### In bash
+
+1) Setup
 ```bash
 python -m venv .venv
 source .venv/Scripts/activate   # Windows (Git Bash)
@@ -74,7 +75,7 @@ For Ollama, install Ollama
  - ollama run llama3.1
 ```
 
-## 2) Run the API locally (MVP)
+2) Run the API locally (MVP)
 
 ```bash
 uvicorn app.main:app --reload --port 8000
@@ -89,7 +90,7 @@ Security logs write to `logs/security.log` and `logs/requests.log` (JSONL).
 
 ---
 
-## 3) Execute Red‑Team Suite
+3) Execute Red‑Team Suite
 
 ```bash
 python redteam/run_redteam.py --base-url http://localhost:8000 --outfile reports/run.json
@@ -105,7 +106,7 @@ Reports are saved into `reports/` as JSON/CSV.
 
 ---
 
-## 4) Hardening Checklist (iterate)
+4) Hardening Checklist (iterate)
 
 - Add real moderation endpoints (e.g., OpenAI/Claude safety, custom toxicity/PII classifiers).
 - Add **anomaly detection** using semantic similarity (embedding) of known-bad payloads.
@@ -115,7 +116,7 @@ Reports are saved into `reports/` as JSON/CSV.
 
 ---
 
-## 5) Docker (optional)
+5) Docker (optional)
 
 ```bash
 docker build -t llm-ai-security -f Dockerfile.app .
@@ -126,28 +127,12 @@ docker run --rm -p 8000:8000 --env-file .env llm-ai-security
 
 
 
-## 🏗️ Visual Flow
- ┌────────────┐        ┌──────────────┐        ┌─────────────┐
-│  Red Team       │ ───►│   LLM Core         │ ───►         Blue Team │
-│ (Attackers)     │        │ (GPT, Llama)    │        │       (Defense)  │
-└────────────┘        └──────────────┘        └─────────────┘
-                                      │                          |
-                                      ▼                          |
-                           ┌────────────┐                    |            
-                           │  Filter        │◄──────────────
-                           │ (Policies)     │                                
-                           └────────────┘
-
----
-
-## 8) Safety & Responsible Use
-
+## Safety & Responsible Use
 This project is **for defense**. Red-team prompts are safe and generic. Do **not** use it to build systems that produce or help produce harm.
 
----
 
 ## 👨‍💻 Author
 - Nandini Kosgi
-- LinkedIn: 
+- LinkedIn: https://www.linkedin.com/in/nandinikosgi/
+  
 
----
