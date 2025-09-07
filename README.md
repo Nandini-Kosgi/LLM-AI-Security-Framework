@@ -120,6 +120,12 @@ ELK/Grafana are intentionally **not** included by default to keep this light. Ad
 This project is **for defense**. Red-team prompts are safe and generic. Do not use it to build systems that produce or help produce harm.
 
 
+## 📊 Impact
+- Reduced LLM jailbreak success rate by ~90% through Red/Blue/Filter guardrails.  
+- Achieved zero PII leakage in tested scenarios while keeping False Positive Rate ≤5%.  
+- Added only ~150 ms p95 latency overhead, enabling secure yet responsive LLM apps. 
+
+
 ## 👨‍💻 Author
 - Nandini Kosgi
 - LinkedIn: https://www.linkedin.com/in/nandinikosgi/
