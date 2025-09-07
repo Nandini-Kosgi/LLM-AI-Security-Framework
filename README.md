@@ -81,7 +81,7 @@ Together, they create a continuous feedback loop that improves LLM security.
 - uvicorn app.main:app --reload --port 8000
 
 Test a normal request:
----
+
 curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"user_input":"Hello! can you summarize: red vs blue vs filter?"}'
 
 Security logs write to `logs/security.log` and `logs/requests.log` (JSONL).
@@ -98,11 +98,12 @@ python evaluation/metrics.py --infile reports/run.json
 - FPR/FNR = False positives / negatives
 - Latency = p50/p95 of end‑to‑end API calls
 
-Reports are saved into `reports/` as JSON/CSV.
+- Reports are saved into `reports/` as JSON/CSV.
 
 
 4) Hardening Checklist (iterate)
 
+---
 - Add real moderation endpoints (e.g., OpenAI/Claude safety, custom toxicity/PII classifiers).
 - Add anomaly detection using semantic similarity (embedding) of known-bad payloads.
 - Add rate limits & user auth (e.g., API keys/JWT) in `app/main.py`.
@@ -113,6 +114,7 @@ Reports are saved into `reports/` as JSON/CSV.
 
 5) Docker (optional)
 
+---
 docker build -t llm-ai-security -f Dockerfile.app .
 docker run --rm -p 8000:8000 --env-file .env llm-ai-security
 
