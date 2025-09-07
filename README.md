@@ -63,39 +63,35 @@ Together, they create a continuous feedback loop that improves LLM security.
 ### In bash
 
 1) Setup
-```bash
-python -m venv .venv
-source .venv/Scripts/activate   # Windows (Git Bash)
-pip install --upgrade pip
-pip install -r requirements.txt
-cp .env.example .env
+   
+---
+- python -m venv .venv
+- source .venv/Scripts/activate   # Windows (Git Bash)
+- pip install --upgrade pip
+- pip install -r requirements.txt
+- cp .env.example .env
 
-For safe echo mode, leave OLLAMA_* commented out in .env.
-For Ollama, install Ollama
+- For safe echo mode, leave OLLAMA_* commented out in .env.
+- For Ollama, install Ollama
  - ollama run llama3.1
-```
+
 
 2) Run the API locally (MVP)
-
-```bash
-uvicorn app.main:app --reload --port 8000
-```
+---
+- uvicorn app.main:app --reload --port 8000
 
 Test a normal request:
-```bash
+---
 curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"user_input":"Hello! can you summarize: red vs blue vs filter?"}'
-```
 
 Security logs write to `logs/security.log` and `logs/requests.log` (JSONL).
 
----
 
 3) Execute Red‑Team Suite
-
-```bash
+---
 python redteam/run_redteam.py --base-url http://localhost:8000 --outfile reports/run.json
 python evaluation/metrics.py --infile reports/run.json
-```
+
 
 - ASR = Attack Success Rate (unsafe output slipped through)
 - DR  = Detection Rate (blue/filter caught it)
@@ -104,31 +100,29 @@ python evaluation/metrics.py --infile reports/run.json
 
 Reports are saved into `reports/` as JSON/CSV.
 
----
 
 4) Hardening Checklist (iterate)
 
 - Add real moderation endpoints (e.g., OpenAI/Claude safety, custom toxicity/PII classifiers).
-- Add **anomaly detection** using semantic similarity (embedding) of known-bad payloads.
-- Add **rate limits** & **user auth** (e.g., API keys/JWT) in `app/main.py`.
+- Add anomaly detection using semantic similarity (embedding) of known-bad payloads.
+- Add rate limits & user auth (e.g., API keys/JWT) in `app/main.py`.
 - Send logs to a SIEM (ELK/Datadog). Docker Compose placeholder is in `docker-compose.yml`.
-- Add **CI gate**: run `redteam/run_redteam.py` on PRs and fail if ASR > threshold.
+- Add CI gate: run `redteam/run_redteam.py` on PRs and fail if ASR > threshold.
 
----
+
 
 5) Docker (optional)
 
-```bash
 docker build -t llm-ai-security -f Dockerfile.app .
 docker run --rm -p 8000:8000 --env-file .env llm-ai-security
-```
+
 
 > ELK/Grafana are intentionally **not** included by default to keep this light. Add your preferred stack later.
 
 
 
 ## Safety & Responsible Use
-This project is **for defense**. Red-team prompts are safe and generic. Do **not** use it to build systems that produce or help produce harm.
+This project is **for defense**. Red-team prompts are safe and generic. Do not use it to build systems that produce or help produce harm.
 
 
 ## 👨‍💻 Author
